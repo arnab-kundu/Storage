@@ -1,5 +1,7 @@
 # Android 10 Storage
 
+[![](https://jitpack.io/v/arnab-kundu/Storage.svg)](https://jitpack.io/#arnab-kundu/Storage)
+
 ## How to use
 
 Step 1. Add it in your root build.gradle at the end of repositories:
@@ -14,7 +16,7 @@ Step 1. Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 ```
 	dependencies {
-		implementation 'com.github.arnab-kundu:Storage:1.0.1'
+		implementation 'com.github.arnab-kundu:Storage:1.0.2'
 	}
 ```
 Step 3. Add this in your MainActivity
@@ -33,7 +35,3 @@ Step 3. Add this in your MainActivity
 - Android 11
 - Android 12
 - android 13
-
-## Badge
-[![](https://jitpack.io/v/arnab-kundu/Storage.svg)](https://jitpack.io/#arnab-kundu/Storage)
-
