@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Storage"
+include ':demo'
 include ':storageLibrary'
-include ':app'
