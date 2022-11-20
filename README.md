@@ -33,3 +33,7 @@ Step 3. Add this in your MainActivity
 - Android 11
 - Android 12
 - android 13
+
+## Badge
+[![](https://jitpack.io/v/arnab-kundu/Storage.svg)](https://jitpack.io/#arnab-kundu/Storage)
+
