@@ -1,7 +1,7 @@
 package com.arnab.demo
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.arnab.storage.AppFileManager
 import com.arnab.storage.FileLocationCategory
 
@@ -17,6 +17,27 @@ class MainActivity : AppCompatActivity() {
             fileLocationCategory = FileLocationCategory.MEDIA_DIRECTORY,
             fileName = "TestFile",
             fileExtension = "txt"
+        )
+
+        appFileManager.createFolder(folderName = "SampleFolder", path = filesDir.path)
+
+        appFileManager.createFile(
+            context = this,
+            fileLocationCategory = FileLocationCategory.EXTERNAL_FILES_DIRECTORY,
+            fileName = "SampleFile",
+            fileExtension = "txt"
+        )
+
+        appFileManager.encryptFile(
+            context = this,
+            srcFilePath = filesDir.path + "/SampleFile.txt",
+            encryptedFileName = "MyEncrypt"
+        )
+
+        appFileManager.decryptFile(
+            context = this,
+            encryptedFilePath = "/storage/emulated/0/Android/media/com.arnab.demo/MyEncrypt.enc",
+            outputFileName = "MyDecryptFile.txt"
         )
     }
 }
