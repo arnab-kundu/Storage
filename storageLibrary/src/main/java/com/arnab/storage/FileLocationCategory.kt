@@ -5,9 +5,15 @@ enum class FileLocationCategory {
     /** **Internal App directories files are:**
      *  - Not visible for user in Physical Device or emulator
      *  - Only visible in Android Studio's - **Device File Explorer**
-     *  - Located at Path: **data/data/com.package.name/cache/..**
-     *  - Located at Path: **data/data/com.package.name/..**
+     *
+     *  - Located at Path: **data/data/com.package.name/cache/..** &
+     *  - Located at Path: **data/user/0/com.package.name/cache/..**
+     *
+     *  - Located at Path: **data/data/com.package.name/..** &
+     *  - Located at Path: **data/user/0/com.package.name/..**
+     *
      *  - Located at Path: **data/data/com.package.name/files/..**
+     *  - Located at Path: **data/user/0/com.package.name/files/..**
      */
     CACHE_DIRECTORY,
     DATA_DIRECTORY,
