@@ -109,7 +109,7 @@ Step 3. Use this below code blocks as per your requirement into any of Activity,
 - Android Studio Iguana | 2023.2.1
 - Minimum SDK version: 24
 - Target SDK version: 34
-- JDK version: 18
+- JDK version: 17
 
 ## Support
 
