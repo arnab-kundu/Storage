@@ -1,12 +1,12 @@
 package com.arnab.demo
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.arnab.storage.AppFileManager
 import com.arnab.storage.FileLocationCategory
 
 class MainActivity : AppCompatActivity() {
+    @Suppress("UNUSED_VARIABLE")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -48,11 +48,11 @@ class MainActivity : AppCompatActivity() {
             encryptedFileName = "MyEncrypt"
         )
 
-        appFileManager.decryptFile(
+        /*appFileManager.decryptFile(
             context = this,
             encryptedFilePath = "/storage/emulated/0/Android/media/com.arnab.demo/MyEncrypt.enc",
             outputFileName = "MyDecryptFile.txt"
-        )
+        )*/
         // endregion
 
         // region Invisible files

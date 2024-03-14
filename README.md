@@ -106,9 +106,9 @@ Step 3. Use this below code blocks as per your requirement into any of Activity,
 ```
 ## Build Tool
 
-- Android Studio Dolphin | 2021.3.1 Patch 1
+- Android Studio Iguana | 2023.2.1
 - MINIMUM SDK version: 24
-- TARGET SDK version: 33
+- TARGET SDK version: 34
 
 ## Support
 
@@ -116,3 +116,4 @@ Step 3. Use this below code blocks as per your requirement into any of Activity,
 - Android 11
 - Android 12
 - android 13
+- android 14
