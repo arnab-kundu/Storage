@@ -31,7 +31,7 @@ Step 2. Add the dependency
 
 ```groovy
 	dependencies {
-		implementation 'com.github.arnab-kundu:Storage:1.0.2'
+		implementation 'com.github.arnab-kundu:Storage:1.0.5'
 	}
 ```
 
