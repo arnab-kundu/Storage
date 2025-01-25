@@ -106,7 +106,7 @@ Step 3. Use this below code blocks as per your requirement into any of Activity,
 ```
 ## Build Tool
 
-- Android Studio Dolphin | 2021.3.1 Patch 1
+- Android Studio Jellyfish | 2023.3.1
 - MINIMUM SDK version: 24
 - TARGET SDK version: 33
 

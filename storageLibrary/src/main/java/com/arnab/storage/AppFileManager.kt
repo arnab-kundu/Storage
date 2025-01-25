@@ -31,7 +31,7 @@ import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
 
 
-@Suppress("RedundantExplicitType", "SpellCheckingInspection")
+@Suppress("RedundantExplicitType")
 class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionManager() {
 
     private val APPLICATION_ID: String = packageName
@@ -74,11 +74,13 @@ class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionM
     }
 
     override fun deleteFolder(directory: File) {
-        for (file in directory.listFiles()) {
-            if (!file.isDirectory) {
-                file.delete()
+        if (directory.listFiles() != null)
+            for (file in directory.listFiles()!!) {
+                if (!file.isDirectory) {
+                    file.delete()
+                }
             }
-        }
+        directory.delete()
     }
 
     @Suppress("unused", "UNUSED_PARAMETER", "UNUSED_ANONYMOUS_PARAMETER")
@@ -108,21 +110,21 @@ class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionM
     override fun createFile(context: Context, fileLocationCategory: FileLocationCategory, fileName: String, fileExtension: String?): File {
 
         /** Create path */
-        val folder: File? = when(fileLocationCategory) {
-            CACHE_DIRECTORY          -> context.cacheDir
-            DATA_DIRECTORY           -> context.dataDir
-            FILES_DIRECTORY          -> context.filesDir
+        val folder: File? = when (fileLocationCategory) {
+            CACHE_DIRECTORY -> context.cacheDir
+            DATA_DIRECTORY -> context.dataDir
+            FILES_DIRECTORY -> context.filesDir
             EXTERNAL_CACHE_DIRECTORY -> context.externalCacheDir.let { if (it == null) Logg.w("externalCacheDir returns null"); it }
 
             EXTERNAL_FILES_DIRECTORY -> context.getExternalFilesDir(null).let { if (it == null) Logg.w("getExternalFilesDir returns null"); it }
-            MEDIA_DIRECTORY          -> createAppsInternalPrivateStoragePath("media/${APPLICATION_ID}").let { if (it == null) Logg.w("createMediaDir returns null"); it }
-            OBB_DIRECTORY            -> context.obbDir
+            MEDIA_DIRECTORY -> createAppsInternalPrivateStoragePath("media/${APPLICATION_ID}").let { if (it == null) Logg.w("createMediaDir returns null"); it }
+            OBB_DIRECTORY -> context.obbDir
 
-            DOWNLOADS_DIRECTORY      -> File("/storage/emulated/0/Download/")
-            DOCUMENT_DIRECTORY       -> TODO()
-            MUSIC_DIRECTORY          -> TODO()
-            PICTURES_DIRECTORY       -> TODO()
-            VIDEOS_DIRECTORY         -> TODO()
+            DOWNLOADS_DIRECTORY -> File("/storage/emulated/0/Download/")
+            DOCUMENT_DIRECTORY -> TODO()
+            MUSIC_DIRECTORY -> TODO()
+            PICTURES_DIRECTORY -> TODO()
+            VIDEOS_DIRECTORY -> TODO()
         }
 
         val file: File = if (fileExtension == null) File(folder!!.path, fileName)
@@ -207,9 +209,8 @@ class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionM
      * Zip all the files available in provided path
      */
     override fun zipFiles(srcFolderPath: String, destZipFilePath: String): File {
-        var zip: ZipOutputStream? = null
-        var fileWriter: FileOutputStream? = null
-        fileWriter = FileOutputStream(destZipFilePath)
+        val zip: ZipOutputStream?
+        val fileWriter: FileOutputStream = FileOutputStream(destZipFilePath)
         zip = ZipOutputStream(fileWriter)
         addFolderToZip("", srcFolderPath, zip)
         zip.flush()
@@ -327,7 +328,7 @@ class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionM
     private fun addFolderToZip(path: String, srcFolder: String, zip: ZipOutputStream) {
         val folder = File(srcFolder)
         if (folder.list() != null)
-            for (fileName in folder.list()) {
+            for (fileName in folder.list()!!) {
                 if (path == "") {
                     addFileToZip(folder.name, "$srcFolder/$fileName", zip)
                 } else {
@@ -380,9 +381,10 @@ class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionM
 
     @RequiresApi(VERSION_CODES.N)
     override fun decryptFile(context: Context, encryptedFilePath: String, outputFileName: String): File? {
-        var decryptedOutputFile: File? = null
-        val mInputStream: InputStream = FileInputStream(encryptedFilePath)
+        val decryptedOutputFile: File?
         try {
+            val mInputStream: InputStream = FileInputStream(encryptedFilePath)
+
             /** Create Folder and file */
             createFolder("decrypt", encryptedFilePath)
             decryptedOutputFile = createFile(context, MEDIA_DIRECTORY, outputFileName, null)
