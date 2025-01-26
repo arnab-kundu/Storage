@@ -1,4 +1,4 @@
-# Android 10 Storage
+# Android 10+ Storage
 
 [![](https://jitpack.io/v/arnab-kundu/Storage.svg)](https://jitpack.io/#arnab-kundu/Storage)
 
@@ -108,7 +108,7 @@ Step 3. Use this below code blocks as per your requirement into any of Activity,
 
 - Android Studio Ladybug | 2024.2.1 Patch 1
 - MINIMUM SDK version: 24
-- TARGET SDK version: 34
+- TARGET SDK version: 35
 
 ## Support
 
@@ -116,3 +116,9 @@ Step 3. Use this below code blocks as per your requirement into any of Activity,
 - Android 11
 - Android 12
 - android 13
+- android 14
+- android 15
+
+## TODOs
+- Convert gradle Groove to kts
+- Introduce version catalog

@@ -3,17 +3,17 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
-//apply from: '../lib-version.gradle'
+apply from: '../lib-version.gradle'
 
 android {
     namespace 'com.arnab.storage'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         minSdk 24
-        targetSdk 34
-        //versionCode project.ext.version.major * 100 + project.ext.version.minor * 10 + project.ext.version.build
-        //versionName "${project.ext.version.major}.${project.ext.version.minor}.${project.ext.version.build}"
+        targetSdk 35
+        versionCode project.ext.version.major * 100 + project.ext.version.minor * 10 + project.ext.version.build
+        versionName "${project.ext.version.major}.${project.ext.version.minor}.${project.ext.version.build}"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -38,10 +38,10 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.core:core-ktx:1.15.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 }
