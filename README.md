@@ -106,9 +106,9 @@ Step 3. Use this below code blocks as per your requirement into any of Activity,
 ```
 ## Build Tool
 
-- Android Studio Koala | 2024.1.1 Patch 1
+- Android Studio Ladybug | 2024.2.1 Patch 1
 - MINIMUM SDK version: 24
-- TARGET SDK version: 33
+- TARGET SDK version: 34
 
 ## Support
 
