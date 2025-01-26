@@ -28,12 +28,13 @@ Or For API 33(Gradle 6.8 or higher) in settings.gradle
 ```
 
 Step 2. Add the dependency
-
+In `build.gradle` file add this line
 ```groovy
 	dependencies {
-        implementation 'com.github.arnab-kundu:storage:1.0.6'
+            implementation 'com.github.arnab-kundu:storage:1.0.6'
 	}
 ```
+Or in `build.gradle.kts` file add this line
 ```kts
         implementation("com.github.arnab-kundu:storage:1.0.6")
 ```
@@ -127,7 +128,5 @@ Compatible with Android
 - Android 15 (API 35)
 
 ## TODOs
-- Convert gradle Groove to kts
-- Introduce version catalog
 - API 33 to 34 upgrade steps in Android Studio guideline
 - API 34 to 35 upgrade steps in Android Studio guideline
