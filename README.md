@@ -31,8 +31,11 @@ Step 2. Add the dependency
 
 ```groovy
 	dependencies {
-		implementation 'com.github.arnab-kundu:Storage:1.0.2'
+        implementation 'com.github.arnab-kundu:storage:1.0.6'
 	}
+```
+```kts
+        implementation("com.github.arnab-kundu:storage:1.0.6")
 ```
 
 Step 3. Use this below code blocks as per your requirement into any of Activity, Fragment, ViewModel, Repository, FileManager etc. 
@@ -104,20 +107,24 @@ Step 3. Use this below code blocks as per your requirement into any of Activity,
         extractLocationPath = "/storage/emulated/0/Android/media/${BuildConfig.APPLICATION_ID}/"
     )
 ```
-## Build Tool
+## :hammer_and_wrench: Build Tool - Android Studio
 
 - Android Studio Ladybug Feature Drop | 2024.2.2
 - MINIMUM SDK version: 24
 - TARGET SDK version: 35
+- JDK version: 17
 
-## Support
+## :dart: Target API 
 
-- Android 10
-- Android 11
-- Android 12
-- android 13
-- android 14
-- android 15
+Compatible with Android
+
+- Android 10 (API 29)
+- Android 11 (API 30)
+- Android 12 (API 31)
+- Android 12L (API 32)
+- Android 13 (API 33)
+- Android 14 (API 34)
+- Android 15 (API 35)
 
 ## TODOs
 - Convert gradle Groove to kts
