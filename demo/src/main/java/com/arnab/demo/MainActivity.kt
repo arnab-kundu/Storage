@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.arnab.storage.AppFileManager
 import com.arnab.storage.FileLocationCategory
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
     @Suppress("UNUSED_VARIABLE")
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         appFileManager.encryptFile(
             context = this,
-            srcFilePath = filesDir.path + "/SampleFile.txt",
+            srcFilePath = filesDir.path + "/TestFile.txt",
             encryptedFileName = "MyEncrypt"
         )
 
@@ -78,6 +79,7 @@ class MainActivity : AppCompatActivity() {
             fileName = "TestFile",
             fileExtension = "txt"
         )
+        appFileManager.deleteFolder(directory = File(filesDir.path, "SampleFolder"))
         // endregion
     }
 }

@@ -1,4 +1,4 @@
-# Android 10 Storage
+# Android 10+ Storage
 
 [![](https://jitpack.io/v/arnab-kundu/Storage.svg)](https://jitpack.io/#arnab-kundu/Storage)
 
@@ -31,7 +31,7 @@ Step 2. Add the dependency
 
 ```groovy
 	dependencies {
-		implementation 'com.github.arnab-kundu:Storage:1.0.5'
+		implementation 'com.github.arnab-kundu:Storage:1.0.2'
 	}
 ```
 
@@ -106,10 +106,9 @@ Step 3. Use this below code blocks as per your requirement into any of Activity,
 ```
 ## Build Tool
 
-- Android Studio Iguana | 2023.2.1
-- Minimum SDK version: 24
-- Target SDK version: 34
-- JDK version: 17
+- Android Studio Ladybug Feature Drop | 2024.2.2
+- MINIMUM SDK version: 24
+- TARGET SDK version: 35
 
 ## Support
 
@@ -118,3 +117,10 @@ Step 3. Use this below code blocks as per your requirement into any of Activity,
 - Android 12
 - android 13
 - android 14
+- android 15
+
+## TODOs
+- Convert gradle Groove to kts
+- Introduce version catalog
+- API 33 to 34 upgrade steps in Android Studio guideline
+- API 34 to 35 upgrade steps in Android Studio guideline

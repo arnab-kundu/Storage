@@ -3,7 +3,7 @@ allprojects{
         version = [
                 major: 1,
                 minor: 0,
-                build: 5
+                build: 6
         ]
     }
 }
