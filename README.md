@@ -106,7 +106,7 @@ Step 3. Use this below code blocks as per your requirement into any of Activity,
 ```
 ## Build Tool
 
-- Android Studio Ladybug | 2024.2.1 Patch 1
+- Android Studio Ladybug Feature Drop | 2024.2.2
 - MINIMUM SDK version: 24
 - TARGET SDK version: 35
 
@@ -122,3 +122,5 @@ Step 3. Use this below code blocks as per your requirement into any of Activity,
 ## TODOs
 - Convert gradle Groove to kts
 - Introduce version catalog
+- API 33 to 34 upgrade steps in Android Studio guideline
+- API 34 to 35 upgrade steps in Android Studio guideline
