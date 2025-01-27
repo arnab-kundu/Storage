@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
 
 apply from: '../lib-version.gradle'
@@ -16,6 +17,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         /** Customized filename for generated aar file */
+        def versionName = "${project.ext.version.major}.${project.ext.version.minor}.${project.ext.version.build}"
         setProperty("archivesBaseName", "storageLibrary-v" + versionName)
     }
 
@@ -32,6 +34,11 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
+    publishing {
+        // Publishes "fullRelease" build variant with "fullRelease" component created by
+        // Android Gradle plugin
+        singleVariant("release")
+    }
 }
 
 dependencies {
@@ -39,4 +46,24 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.15.0'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
+}
+
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId = 'com.arnab.storage'
+                artifactId = 'Storage'
+                version = "${project.ext.version.major}.${project.ext.version.minor}.${project.ext.version.build}"
+                pom {
+                    name = 'Android library for Storage system'
+                    description = 'Useful library to help Android developers to work with Files in Android 10 and higher verison'
+                }
+                afterEvaluate {
+                    from components.release
+                }
+            }
+        }
+    }
 }
