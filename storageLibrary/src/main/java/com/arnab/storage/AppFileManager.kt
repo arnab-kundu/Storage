@@ -24,6 +24,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
+import java.util.Locale
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
@@ -105,7 +106,7 @@ class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionM
         return file
     }
 
-    override fun createFile(context: Context, fileLocationCategory: FileLocationCategory, fileName: String, fileExtension: String?): File {
+    override fun createFile(context: Context, fileLocationCategory: FileLocationCategory, fileName: String, fileExtension: FileType?): File {
 
         /** Create path */
         val folder: File? = when (fileLocationCategory) {
@@ -117,14 +118,14 @@ class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionM
             MEDIA_DIRECTORY          -> createAppsInternalPrivateStoragePath("$MEDIA/${applicationId}").let { if (it == null) Logg.w("createMediaDir returns null"); it }
             OBB_DIRECTORY            -> context.obbDir
             DOWNLOADS_DIRECTORY      -> File("/storage/emulated/0/Download/")
-            DOCUMENT_DIRECTORY       -> TODO()
-            MUSIC_DIRECTORY          -> TODO()
-            PICTURES_DIRECTORY       -> TODO()
-            VIDEOS_DIRECTORY         -> TODO()
+            DOCUMENT_DIRECTORY       -> File("/storage/emulated/0/Documents/")
+            MUSIC_DIRECTORY          -> File("/storage/emulated/0/Music/")
+            PICTURES_DIRECTORY       -> File("/storage/emulated/0/Pictures/")
+            VIDEOS_DIRECTORY         -> File("/storage/emulated/0/Movies/")
         }
 
         val file: File = if (fileExtension == null) File(folder!!.path, fileName)
-        else File(folder!!.path, "$fileName.$fileExtension")
+        else File(folder!!.path, "$fileName.${fileExtension.name.lowercase()}")
 
         if (!file.exists()) {
             try {
@@ -359,7 +360,7 @@ class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionM
 
             /** Create Folder and file */
             createFolder(folderName = ENCRYPT_FOLDER, path = srcFilePath)
-            encryptedOutputFile = createFile(context, MEDIA_DIRECTORY, encryptedFileName, "enc")
+            encryptedOutputFile = createFile(context, MEDIA_DIRECTORY, encryptedFileName, FileType.ENC)
 
             encryptToFile(keyStr = "keyLength16digit", specStr = "keySizeMustBe16-", inputStream, FileOutputStream(encryptedOutputFile))
         } catch (e: FileNotFoundException) {

@@ -7,8 +7,21 @@ import java.io.InputStream
 
 interface FileManager {
 
+    /**
+     * **Creates a new folder**
+     *
+     * @param folderName
+     * @param path
+     * @return Boolean
+     */
     fun createFolder(folderName: String, path: String): Boolean
 
+    /**
+     * **Creates a file in Apps Internal Private Storage Path*
+     *
+     * @param path String
+     * @return File?
+     */
     fun createAppsInternalPrivateStoragePath(path: String): File?
 
     fun createSharedStoragePath(path: String): File?
@@ -31,7 +44,7 @@ interface FileManager {
      *  @param fileExtension
      *  @return File
      */
-    fun createFile(context: Context, fileLocationCategory: FileLocationCategory, fileName: String, fileExtension: String?): File
+    fun createFile(context: Context, fileLocationCategory: FileLocationCategory, fileName: String, fileExtension: FileType?): File
 
     /**
      * **Copy a file from source path to destination path**
