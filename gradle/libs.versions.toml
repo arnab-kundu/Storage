@@ -4,7 +4,7 @@ constraintlayout = "2.2.1"
 coreKtx = "1.15.0"
 material = "1.12.0"
 kotlin = "1.7.20"
-agp = "8.8.2"
+agp = "8.9.3"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }

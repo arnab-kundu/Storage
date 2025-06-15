@@ -113,7 +113,7 @@ Step 3. Use this below code blocks as per your requirement into any of Activity,
 ```
 ## :hammer_and_wrench: Build Tool - Android Studio
 
-- Android Studio Ladybug Feature Drop | 2024.2.2
+- Android Studio Meerkat | 2024.3.1 Patch 1
 - MINIMUM SDK version: 24
 - TARGET SDK version: 35
 - JDK version: 17

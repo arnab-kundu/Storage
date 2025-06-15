@@ -2,9 +2,7 @@ package com.arnab.storage
 
 import android.content.Context
 import android.media.MediaScannerConnection
-import android.os.Build.VERSION_CODES
 import android.util.Log
-import androidx.annotation.RequiresApi
 import com.arnab.storage.FileLocationCategory.CACHE_DIRECTORY
 import com.arnab.storage.FileLocationCategory.DATA_DIRECTORY
 import com.arnab.storage.FileLocationCategory.DOCUMENT_DIRECTORY
@@ -34,7 +32,7 @@ import java.util.zip.ZipOutputStream
 @Suppress("RedundantExplicitType")
 class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionManager() {
 
-    private val APPLICATION_ID: String = packageName
+    private val applicationId: String = packageName
 
 
     override fun createFolder(folderName: String, path: String): Boolean {
@@ -83,11 +81,11 @@ class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionM
         directory.delete()
     }
 
-    @Suppress("unused", "UNUSED_PARAMETER", "UNUSED_ANONYMOUS_PARAMETER")
+    @Suppress("unused", "UNUSED_PARAMETER")
     private fun createMediaFile(context: Context, filePath: String, fileName: String, fileExtension: String?): File {
 
         /** Create path */
-        val folder = createAppsInternalPrivateStoragePath("media/${APPLICATION_ID}")
+        val folder = createAppsInternalPrivateStoragePath("$MEDIA/${applicationId}")
 
         val file: File = if (fileExtension == null) File(folder!!.path, fileName)
         else File(folder!!.path, "$fileName.$fileExtension")
@@ -101,30 +99,28 @@ class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionM
         }
         // Without MediaScan file not visible to in PC after connecting via USB
         MediaScannerConnection.scanFile(context, arrayOf(file.toString()), null) { path, uri ->
-
+            Logg.v("Path: $path")
+            Logg.v("Uri: $uri")
         }
         return file
     }
 
-    @RequiresApi(VERSION_CODES.N)
     override fun createFile(context: Context, fileLocationCategory: FileLocationCategory, fileName: String, fileExtension: String?): File {
 
         /** Create path */
         val folder: File? = when (fileLocationCategory) {
-            CACHE_DIRECTORY -> context.cacheDir
-            DATA_DIRECTORY -> context.dataDir
-            FILES_DIRECTORY -> context.filesDir
+            CACHE_DIRECTORY          -> context.cacheDir
+            DATA_DIRECTORY           -> context.dataDir
+            FILES_DIRECTORY          -> context.filesDir
             EXTERNAL_CACHE_DIRECTORY -> context.externalCacheDir.let { if (it == null) Logg.w("externalCacheDir returns null"); it }
-
             EXTERNAL_FILES_DIRECTORY -> context.getExternalFilesDir(null).let { if (it == null) Logg.w("getExternalFilesDir returns null"); it }
-            MEDIA_DIRECTORY -> createAppsInternalPrivateStoragePath("media/${APPLICATION_ID}").let { if (it == null) Logg.w("createMediaDir returns null"); it }
-            OBB_DIRECTORY -> context.obbDir
-
-            DOWNLOADS_DIRECTORY -> File("/storage/emulated/0/Download/")
-            DOCUMENT_DIRECTORY -> TODO()
-            MUSIC_DIRECTORY -> TODO()
-            PICTURES_DIRECTORY -> TODO()
-            VIDEOS_DIRECTORY -> TODO()
+            MEDIA_DIRECTORY          -> createAppsInternalPrivateStoragePath("$MEDIA/${applicationId}").let { if (it == null) Logg.w("createMediaDir returns null"); it }
+            OBB_DIRECTORY            -> context.obbDir
+            DOWNLOADS_DIRECTORY      -> File("/storage/emulated/0/Download/")
+            DOCUMENT_DIRECTORY       -> TODO()
+            MUSIC_DIRECTORY          -> TODO()
+            PICTURES_DIRECTORY       -> TODO()
+            VIDEOS_DIRECTORY         -> TODO()
         }
 
         val file: File = if (fileExtension == null) File(folder!!.path, fileName)
@@ -183,9 +179,13 @@ class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionM
         deleteFile(sourcePath)
     }
 
-    @RequiresApi(VERSION_CODES.N)
     override fun renameFile(context: Context, existingFilePath: String, newFileName: String): File {
-        val newFile = createFile(context = context, EXTERNAL_FILES_DIRECTORY, fileName = newFileName, fileExtension = null)
+        val newFile = createFile(
+            context = context,
+            EXTERNAL_FILES_DIRECTORY,
+            fileName = newFileName,
+            fileExtension = null
+        )
         val existingFile = File(existingFilePath)
         val existingFileInputStream: InputStream = FileInputStream(existingFile)
         copyInputStreamToFile(inputStream = existingFileInputStream, file = newFile)
@@ -264,16 +264,17 @@ class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionM
                 if (zEntry!!.isDirectory) {
                     createFolder(folderName = zEntry!!.name, path = extractLocationPath)
                 } else {
-                    val fout: FileOutputStream = FileOutputStream(extractLocationPath + "/" + zEntry!!.name)
-                    val bufout = BufferedOutputStream(fout)
+                    val fileOutputStream: FileOutputStream =
+                        FileOutputStream(extractLocationPath + "/" + zEntry!!.name)
+                    val bufferedOutputStream = BufferedOutputStream(fileOutputStream)
                     val buffer = ByteArray(1024)
                     var read: Int
                     while (zipStream.read(buffer).also { read = it } != -1) {
-                        bufout.write(buffer, 0, read)
+                        bufferedOutputStream.write(buffer, 0, read)
                     }
                     zipStream.closeEntry()
-                    bufout.close()
-                    fout.close()
+                    bufferedOutputStream.close()
+                    fileOutputStream.close()
                 }
             }
             zipStream.close()
@@ -290,11 +291,7 @@ class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionM
      * The reason of preforming slow is its using **FileOutputStream** instead of **BufferedOutputStream**
      * @see     com.arnab.storage.AppFileManager.unZipFile
      */
-    @Deprecated(
-        message = "Use unZipFile() for fast unzipping process",
-        replaceWith = ReplaceWith("unZipFile(zipFilePath = , extractLocationPath = )"),
-        level = DeprecationLevel.WARNING
-    )
+    @Deprecated(message = "Use unZipFile() for fast unzipping process", replaceWith = ReplaceWith("unZipFile(zipFilePath = , extractLocationPath = )"), level = DeprecationLevel.WARNING)
     override fun unZipFileSlowly(zipFilePath: String, extractLocationPath: String) {
         try {
             val fin = FileInputStream(zipFilePath)
@@ -304,16 +301,16 @@ class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionM
 
                 //create dir if required while unzipping
                 if (ze!!.isDirectory) {
-                    //TODO dirChecker(ze.getName());
+                    createFolder(folderName = ze!!.name, path = extractLocationPath)
                 } else {
-                    val fout = FileOutputStream(extractLocationPath + ze!!.name)
+                    val fileOutputStream = FileOutputStream(extractLocationPath + ze!!.name)
                     var c = zin.read()
                     while (c != -1) {
-                        fout.write(c)
+                        fileOutputStream.write(c)
                         c = zin.read()
                     }
                     zin.closeEntry()
-                    fout.close()
+                    fileOutputStream.close()
                 }
             }
             zin.close()
@@ -355,22 +352,16 @@ class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionM
         }
     }
 
-    @RequiresApi(VERSION_CODES.N)
     override fun encryptFile(context: Context, srcFilePath: String, encryptedFileName: String): File? {
         var encryptedOutputFile: File? = null
         try {
             val inputStream: InputStream = FileInputStream(srcFilePath)
 
             /** Create Folder and file */
-            createFolder("encrypt", srcFilePath)
+            createFolder(folderName = ENCRYPT_FOLDER, path = srcFilePath)
             encryptedOutputFile = createFile(context, MEDIA_DIRECTORY, encryptedFileName, "enc")
 
-            encryptToFile(
-                keyStr = "keyLength16digit",
-                specStr = "keySizeMustBe16-",
-                inputStream,
-                FileOutputStream(encryptedOutputFile)
-            )
+            encryptToFile(keyStr = "keyLength16digit", specStr = "keySizeMustBe16-", inputStream, FileOutputStream(encryptedOutputFile))
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
         } catch (e: Exception) {
@@ -379,14 +370,13 @@ class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionM
         return encryptedOutputFile
     }
 
-    @RequiresApi(VERSION_CODES.N)
     override fun decryptFile(context: Context, encryptedFilePath: String, outputFileName: String): File? {
         val decryptedOutputFile: File?
         try {
             val mInputStream: InputStream = FileInputStream(encryptedFilePath)
 
             /** Create Folder and file */
-            createFolder("decrypt", encryptedFilePath)
+            createFolder(folderName = DECRYPT_FOLDER, path = encryptedFilePath)
             decryptedOutputFile = createFile(context, MEDIA_DIRECTORY, outputFileName, null)
 
             decryptToFile(
@@ -403,5 +393,11 @@ class AppFileManager(packageName: String) : FileManager, ZipManager, EncryptionM
             return null
         }
         return decryptedOutputFile
+    }
+
+    companion object {
+        private const val MEDIA = "media"
+        private const val ENCRYPT_FOLDER = "encrypt"
+        private const val DECRYPT_FOLDER = "decrypt"
     }
 }
