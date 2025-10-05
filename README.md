@@ -32,13 +32,13 @@ Step 2. Add the dependency
 In `build.gradle` file add this line
 ```groovy
 	dependencies {
-            implementation 'com.github.arnab-kundu:storage:1.0.9'
+            implementation 'com.github.arnab-kundu:storage:1.1.1'
 	}
 ```
 Or in `build.gradle.kts` file add this line
 ```kts
     dependencies {
-        implementation("com.github.arnab-kundu:storage:1.0.9")
+        implementation("com.github.arnab-kundu:storage:1.1.1")
     }
 ```
 
