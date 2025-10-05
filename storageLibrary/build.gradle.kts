@@ -9,7 +9,7 @@ apply {
 }
 android {
     namespace = "com.arnab.storage"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 24
@@ -21,7 +21,7 @@ android {
         setProperty("archivesBaseName", "storageLibrary-v$versionName")
     }
     lint {
-        targetSdk = 35
+        targetSdk = 36
     }
 
     buildTypes {

@@ -113,9 +113,9 @@ Step 3. Use this below code blocks as per your requirement into any of Activity,
 ```
 ## :hammer_and_wrench: Build Tool - Android Studio
 
-- Android Studio Meerkat | 2024.3.1 Patch 1
+- Android Studio Narwhal 3 Feature Drop | 2025.1.3
 - MINIMUM SDK version: 24
-- TARGET SDK version: 35
+- TARGET SDK version: 36
 - JDK version: 17
 
 ## :dart: Target API 
@@ -129,3 +129,4 @@ Compatible with Android
 - Android 13 (API 33)
 - Android 14 (API 34)
 - Android 15 (API 35)
+- Android 16 (API 36)

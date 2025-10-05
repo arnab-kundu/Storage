@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.arnab.demo"
-    compileSdk = 35
+    compileSdk = 36
     buildFeatures {
         buildConfig = true
     }
@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId = "com.arnab.demo"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
