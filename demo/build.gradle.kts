@@ -43,4 +43,7 @@ dependencies {
 
     implementation(project(":storageLibrary"))
     //implementation("com.github.arnab-kundu:Storage:1.1.1")
+
+    // EXIF Data: Setup meta-data to any file
+    implementation(libs.androidx.exifinterface)
 }

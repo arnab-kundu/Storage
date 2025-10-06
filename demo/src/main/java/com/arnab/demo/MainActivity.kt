@@ -1,6 +1,7 @@
 package com.arnab.demo
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.arnab.storage.AppFileManager
 import com.arnab.storage.FileLocationCategory
@@ -124,5 +125,17 @@ class MainActivity : AppCompatActivity() {
             fileExtension = FileType.MP4
         )
         // endregion
+    }
+
+    private fun testExifData() {
+        val imageFile = File(filesDir.path,"place_holder.jpg")
+
+        Log.d("", "~~ Before setting EXIF data: ${imageFile.path} ~~ ")
+        readExifData(imageFile)
+
+        setExifData(imageFile)
+
+        Log.d("", "~~ After setting EXIF data ~~")
+        readExifData(imageFile)
     }
 }

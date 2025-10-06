@@ -5,12 +5,14 @@ coreKtx = "1.17.0"
 material = "1.13.0"
 kotlin = "2.2.20"
 agp = "8.13.0"
+exifinterface = "1.4.1"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
+androidx-exifinterface = { group = "androidx.exifinterface", name = "exifinterface", version.ref = "exifinterface" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
